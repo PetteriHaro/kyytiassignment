@@ -11,7 +11,7 @@ const listItem = (props: any) => {
     const legs = props.legs.map((leg: any) => (
         <LegItem 
             key={leg.distance}
-            width={leg.distance / props.distance * 100}
+            width={leg.duration.max / props.duration.max * 100}
             backgroundColor={leg.color}
             iconName={leg.iconRef}
             distance={leg.distance}
@@ -37,9 +37,8 @@ const listItem = (props: any) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        paddingVertical: 20,
+        padding: 8,
         marginVertical: 8,
-        paddingHorizontal: 8,
         borderTopWidth: 1,
         borderBottomWidth: 1,
         borderColor: "#ccc",

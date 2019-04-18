@@ -174,12 +174,7 @@ class HomeScreen extends Component <Props, State> {
             .then(userLocation => {
                 this.setState(prevState => {
                     return {
-                        userLocation: {
-                            location: {
-                                lat: latitude,
-                                lon: longitude
-                            }
-                        },
+                        userLocation: userLocation,
                         route: {
                             ...prevState.route,
                             start: userLocation
@@ -197,6 +192,7 @@ class HomeScreen extends Component <Props, State> {
                     }
                     
                 })
+                this.closePlaceSearch()
                 this.setState({isLoading: false})
             })
             .catch(err => {
@@ -246,10 +242,7 @@ class HomeScreen extends Component <Props, State> {
             }
         })
         .then(parsedRes => {
-
-            this.setState({placesLoading: false})
-            console.log(parsedRes)
-            return this.setState({suggestedPlaces: parsedRes})
+            return this.setState({suggestedPlaces: parsedRes, placesLoading: false})
         })
         .catch(err => {
             console.log(err)
@@ -334,7 +327,7 @@ class HomeScreen extends Component <Props, State> {
                 }
                 return this.setTime(new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute))
               } catch ({code, message}) {
-                console.warn('Cannot open date picker', message);
+                console.warn('Cannot open time picker', message);
               }
         }
     }
@@ -374,7 +367,6 @@ class HomeScreen extends Component <Props, State> {
             }
         })
         .then(parsedRes => {
-            console.log(parsedRes)
             this.setState({isLoading: false})
             if (parsedRes.errors) {
                 return this.setState({error: parsedRes.errors[0].message})
@@ -401,7 +393,6 @@ class HomeScreen extends Component <Props, State> {
     }
 
     passengerCountChange = (val: number) => {
-        console.log()
         this.setState(prevState => {
             return {
                 route: {
@@ -498,7 +489,9 @@ class HomeScreen extends Component <Props, State> {
                         onFocus={this.clearControl}
                         placeData={this.state.suggestedPlaces.search}
                         placesLoading={this.state.placesLoading}
-                        setStartPoint={this.setStartPoint} />
+                        setStartPoint={this.setStartPoint}
+                        setUserLocation={this.setUserLocation}
+                        userLocation={this.state.userLocation} />
                 </Animated.View>
                 {content}
             </View>

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     StyleSheet,
-    FlatList,
     ScrollView
 } from 'react-native';
 import ListItem from './ListItem/ListItem';

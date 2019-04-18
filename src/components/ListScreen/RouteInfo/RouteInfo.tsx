@@ -15,7 +15,7 @@ const routeInfo = (props: any) => (
             <Text style={styles.headerText}>Destination</Text>
             <Text>{props.to}</Text>
         </View>
-        <Text style={[styles.headerText, {textAlign: "center"}]}>{props.date}</Text>
+        <Text style={[styles.headerText, {textAlign: "left"}]}>{props.date}</Text>
     </View>
 )
 
