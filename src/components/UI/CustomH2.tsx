@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     CustomH2: {
         fontSize: 20,
         fontWeight: "bold",
-        color: "#161616"
+        color: "#161616",
+        textAlign: "center"
     }
 })
 
