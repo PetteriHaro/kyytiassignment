@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
     View,
     StyleSheet,
+    Platform
 } from 'react-native';
 import BackButton from '../../components/ListScreen/BackButton/BackButton';
 import CustomH1 from '../../components/UI/CustomH1';
@@ -43,7 +44,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        paddingTop: 45
+        ...Platform.select({
+            ios: {
+                paddingTop: 45
+            },
+            android: {
+                paddingTop: 10
+            }
+        })
     }
 })
 

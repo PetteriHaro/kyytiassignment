@@ -8,30 +8,26 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const legItem = (props: any) => {
     let transportNumber;
-    let startPlaceName = props.places[0].name
-    let finishPlace = props.places[props.places.length - 1].name;
+    let walkIcon = <Icon name={props.iconName} color={props.backgroundColor} size={20} />;
+    let transportIcon = <Icon name={props.iconName} color="white" size={20} />
     if (props.displayName !== "Walk") {
         transportNumber = (
             <View style={{width: "110%"}}>
                 <View style={styles.transportContainer}>
-                    <Text style={styles.smallText}>{new Date(props.departureTime).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</Text>
                     <Text style={{color: props.backgroundColor}}>{props.line.code}</Text>
-                    <Text style={styles.smallText}>{new Date(props.arrivalTime).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</Text>
-                </View>
-                <View style={styles.transportContainer}>
-                    <Text style={styles.smallText}>{startPlaceName}</Text>
-                    <Text style={styles.smallText}>{finishPlace}</Text>
                 </View>
             </View>
-            
         )
+        walkIcon = transportNumber
+        transportIcon = <Icon name={props.iconName === "rail" ? "train" : props.iconName} color={props.backgroundColor} size={20} />
     }
 
+
     return (
-        <View style={{width: `${props.width}%`, minWidth: 20,alignItems: "center"}}>
-            <Icon name={props.iconName} color={props.backgroundColor} size={20} />
+        <View style={{width: `${props.width}%`, minWidth: 15, alignItems: "center"}}>
+            {transportIcon}
             <View style={{backgroundColor: props.backgroundColor, height: 5, width: "100%", marginVertical: 5}}/>
-            {transportNumber}
+            {walkIcon}
         </View>
     )
 }   
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
     transportContainer: {
         width: "100%",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "center"
     },
     smallText: {
         fontSize: 12

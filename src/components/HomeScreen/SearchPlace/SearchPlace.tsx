@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import CustomH2 from '../../UI/CustomH2';
 import PlaceList from './PlaceList/PlaceList';
+import ListItem from './PlaceList/ListItem/ListItem';
 
 const searchPlace = (props: any) => {
     let list = (
@@ -32,6 +33,10 @@ const searchPlace = (props: any) => {
                 placeholder="Enter Start Point"
                 onChangeText={props.changeStartText}
                 onFocus={props.onFocus}/>
+            <ListItem 
+                title="Your Location"
+                subtitle={props.userLocation.name}
+                onPress={props.setUserLocation} />    
             {list}
         </View>
     )
