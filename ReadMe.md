@@ -2,7 +2,7 @@
 
 Route Planning with the Kyyti API
 
-## notes: 
+## Notes: 
 
 Styling Could Definetly Be Approved
 
