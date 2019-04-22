@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather'
 
@@ -14,9 +15,17 @@ const backButton = (props:any) => (
 const styles = StyleSheet.create({
     button: {
        position: "absolute",
-       top: 30,
        left: 0,
-       padding: 8
+       padding: 5,
+       zIndex: 10,
+       ...Platform.select({
+           ios: {
+               top: 30
+           },
+           android: {
+               top: 0
+           }
+       })
     },
 })
 

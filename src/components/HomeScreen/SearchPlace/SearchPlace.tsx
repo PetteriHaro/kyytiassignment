@@ -32,7 +32,8 @@ const searchPlace = (props: any) => {
                 style={styles.input}
                 placeholder="Enter Start Point"
                 onChangeText={props.changeStartText}
-                onFocus={props.onFocus}/>
+                onFocus={props.onFocus}
+                onKeyPress={props.onKeyPress} />
             <ListItem 
                 title="Your Location"
                 subtitle={props.userLocation.name}
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
                 top: 40
             },
             android: {
-                top: 5
+                top: 10
             }
         })
     },

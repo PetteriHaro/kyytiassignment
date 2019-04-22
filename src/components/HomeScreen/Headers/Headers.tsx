@@ -9,14 +9,14 @@ import CustomH2 from '../../UI/CustomH2';
 
 const headers = () => (
     <View style={styles.container}>
-        <CustomH1>ROUTE PLANNING</CustomH1> 
-        <CustomH2>with KYYTI API</CustomH2>
+        <CustomH1>ROUTE PLANNING</CustomH1>
     </View>
 )
 
 const styles = StyleSheet.create({
     container: {
         width: "100%",
+        marginVertical: 10
     },
 })
 

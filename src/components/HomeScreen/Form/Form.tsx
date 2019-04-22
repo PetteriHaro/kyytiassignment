@@ -12,7 +12,7 @@ const form = (props: any) => {
     return (
         <View style={styles.form}>
             <View style={styles.inputContainer}>
-                <Text style={styles.inputText}>When</Text>
+                <Text style={styles.inputText}>From</Text>
                 <TouchableOpacity onPress={props.showPlaceSearch} style={styles.input}>
                     <Text style={{textAlign: "right", color: "black"}}>{props.route.start.name}, {props.route.start.city}</Text> 
                 </TouchableOpacity>

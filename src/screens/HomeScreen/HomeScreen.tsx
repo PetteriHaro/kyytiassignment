@@ -15,6 +15,7 @@ import Form from '../../components/HomeScreen/Form/Form';
 import Options from '../../components/HomeScreen/Options/Options';
 import CustomButton from '../../components/UI/CustomButton';
 import SearchPlace from '../../components/HomeScreen/SearchPlace/SearchPlace';
+import TopLogo from '../../components/HomeScreen/TopImage/TopImage';
 
 const FETCH_HEADERS = {
     Accept: "application/json",
@@ -104,6 +105,8 @@ class HomeScreen extends Component <Props, State> {
         anim: new Animated.Value(0)
     }
 
+    timer:any = null;
+    
     async componentDidMount() {
         if (Platform.OS === "ios") {
             this.setUserLocation()
@@ -192,6 +195,7 @@ class HomeScreen extends Component <Props, State> {
                     }
                     
                 })
+                this.getPlaces()
                 this.closePlaceSearch()
                 this.setState({isLoading: false})
             })
@@ -205,6 +209,7 @@ class HomeScreen extends Component <Props, State> {
     }
 
     changeStartText = (val: any) => {
+        clearTimeout(this.timer)
         this.setState(prevState => {
             return {
                 controls: {
@@ -216,10 +221,19 @@ class HomeScreen extends Component <Props, State> {
                 }
             }
         }, () => {
-            this.getPlaces()
+            if (Platform.OS === "ios") {
+                return this.timer = setTimeout(() => {
+                    return this.getPlaces()
+                }, 500)
+            } else {
+                return setTimeout(() => {
+                    return this.getPlaces()
+                }, 500)
+            }           
         })
-        
     }
+
+    logger = () => console.log("IN THE LOGGER")
 
     getPlaces = () => {
         const latitude: number = this.state.userLocation.location.lat;
@@ -420,16 +434,22 @@ class HomeScreen extends Component <Props, State> {
         })
     }
 
+    keyPressHandler = () => {
+        clearTimeout(this.timer)       
+    }
+
     render() {
         let button = <CustomButton onPress={this.findRoute}>FIND ROUTE</CustomButton>
         if (this.state.isLoading) {
             button = <ActivityIndicator size="large" color="#FF7505" />
         }
+
         if (this.state.datePickerShowing || this.state.timePickerShowing) {
             button = (
                 <Text></Text>
             )
         }
+
         let content: any = (
             <View style={{width: "90%", alignItems: "center"}}>
                  <Form
@@ -463,9 +483,11 @@ class HomeScreen extends Component <Props, State> {
                 </View>
             )
         }
+
         return (
             <View style={styles.container}>
-                <HeaderText />
+                <TopLogo />
+                <HeaderText />     
                 <Animated.View style={{
                     position: "absolute",
                     top: 0,
@@ -491,7 +513,8 @@ class HomeScreen extends Component <Props, State> {
                         placesLoading={this.state.placesLoading}
                         setStartPoint={this.setStartPoint}
                         setUserLocation={this.setUserLocation}
-                        userLocation={this.state.userLocation} />
+                        userLocation={this.state.userLocation}
+                        onKeyPress={this.keyPressHandler} />
                 </Animated.View>
                 {content}
             </View>

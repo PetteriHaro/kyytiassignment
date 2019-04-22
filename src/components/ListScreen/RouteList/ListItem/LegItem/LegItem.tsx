@@ -7,27 +7,28 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const legItem = (props: any) => {
-    let transportNumber;
-    let walkIcon = <Icon name={props.iconName} color={props.backgroundColor} size={20} />;
-    let transportIcon = <Icon name={props.iconName} color="white" size={20} />
-    if (props.displayName !== "Walk") {
-        transportNumber = (
-            <View style={{width: "110%"}}>
-                <View style={styles.transportContainer}>
-                    <Text style={{color: props.backgroundColor}}>{props.line.code}</Text>
-                </View>
+    let {color, iconName, departureTime, distance} = props
+    let transportIcon;
+    let distanceText;
+    
+    if (props.displayName === "Walk") {
+        transportIcon = <Icon name={iconName} color={color} size={25} style={styles.iconStyle} />
+        distanceText = Math.ceil(distance /10) * 10 + "m"    
+    } else {
+        transportIcon = (
+            <View style={styles.transportContainer}>
+                <Icon name={iconName === "rail" ? "train" : iconName} color={color} size={25} style={styles.iconStyle} />
+                <Text style={{color: color}}>{props.line.code}</Text>
             </View>
         )
-        walkIcon = transportNumber
-        transportIcon = <Icon name={props.iconName === "rail" ? "train" : props.iconName} color={props.backgroundColor} size={20} />
+        distanceText = new Date(departureTime).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit", hour12: false})
     }
 
 
     return (
-        <View style={{width: `${props.width}%`, minWidth: 15, alignItems: "center"}}>
+        <View style={{ alignItems: "center"}}>
             {transportIcon}
-            <View style={{backgroundColor: props.backgroundColor, height: 5, width: "100%", marginVertical: 5}}/>
-            {walkIcon}
+            <Text style={{color: color}}>{distanceText}</Text>
         </View>
     )
 }   
@@ -37,12 +38,14 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     transportContainer: {
-        width: "100%",
         flexDirection: "row",
-        justifyContent: "center"
+        alignItems: "center"
     },
     smallText: {
         fontSize: 12
+    },
+    iconStyle: {
+        margin: 3
     }
 })
 
